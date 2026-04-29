@@ -1,0 +1,38 @@
+// Proto Inspector 测试协议 2
+// 用途：用于验证功能说明类消息、枚举、64 位整数、浮点数和多条记录的解析与序列化。
+
+syntax = "proto2";
+option csharp_namespace = "Ctrd.Protocol.Test";
+
+message Test2FeatureGuideMessage {
+  required Test2GuideHeader header = 1;        // 功能说明头
+  optional Test2GuideBody body = 2;            // 功能说明主体
+}
+
+message Test2GuideHeader {
+  required int32 action = 1;                   // 功能号，例如 2001
+  optional string serialNo = 2;                // 流水号
+  optional string operator = 3;                // 操作员
+  optional Test2GuideType guideType = 4;       // 说明类型
+}
+
+enum Test2GuideType {
+  GUIDE_UNKNOWN = 0;
+  GUIDE_USAGE = 1;
+  GUIDE_SERIALIZE = 2;
+  GUIDE_DESERIALIZE = 3;
+}
+
+message Test2GuideBody {
+  optional string featureName = 1;             // 功能名称
+  optional string description = 2;             // 功能描述
+  optional int64 documentId = 3;               // 文档编号，JSON 中建议使用字符串
+  optional double confidence = 4;              // 示例置信度
+  repeated Test2GuideStep steps = 5;           // 操作步骤
+}
+
+message Test2GuideStep {
+  optional int32 stepNo = 1;                   // 步骤序号
+  optional string instruction = 2;             // 操作说明
+  optional bool required = 3;                  // 是否必需
+}

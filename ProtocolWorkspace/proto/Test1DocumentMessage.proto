@@ -1,0 +1,32 @@
+// Proto Inspector 测试协议 1
+// 用途：用于验证说明文档类消息、基础字段类型、嵌套消息和 repeated 字段的解析与序列化。
+
+syntax = "proto2";
+option csharp_namespace = "Ctrd.Protocol.Test";
+
+message Test1DocumentMessage {
+  required Test1Header header = 1;             // 文档消息头
+  optional Test1DocumentBody body = 2;         // 文档主体
+}
+
+message Test1Header {
+  required int32 action = 1;                   // 功能号，例如 1001
+  optional string serialNo = 2;                // 流水号
+  optional string version = 3;                 // 文档协议版本
+  optional string sendingTime = 4;             // 发送时间 yyyyMMdd-HH:mm:ss.SSS
+  optional bool demoFlag = 5;                  // 是否测试数据
+}
+
+message Test1DocumentBody {
+  optional string title = 1;                   // 文档标题
+  optional string summary = 2;                 // 文档摘要
+  optional bytes rawContent = 3;               // 原始内容，JSON 中使用 Base64
+  repeated Test1Section sections = 4;          // 章节列表
+}
+
+message Test1Section {
+  optional int32 sectionNo = 1;                // 章节序号
+  optional string heading = 2;                 // 章节标题
+  optional string content = 3;                 // 章节内容
+  repeated string tags = 4;                    // 标签
+}

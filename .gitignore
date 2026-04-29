@@ -1,0 +1,27 @@
+# Build output
+bin/
+obj/
+out/
+dist/
+publish/
+
+# Local verification/publish output
+bin_verify/
+bin_verify_*/
+*.7z
+*.zip
+
+# IDE and user-specific files
+.idea/
+.vs/
+*.user
+*.suo
+*.DotSettings.user
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local scratch files
+/a

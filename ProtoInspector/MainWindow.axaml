@@ -1,0 +1,194 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="ProtoInspector.MainWindow"
+        Title="Proto Inspector V1.0.0 © 清风惹尘丶"
+        Width="1160"
+        Height="700"
+        MinWidth="1160"
+        MinHeight="700"
+        Background="#F4F6F8">
+  <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="12">
+    <Border Grid.Row="0"
+            Padding="10,8"
+            Margin="0,0,0,8"
+            Background="White"
+            BorderBrush="#D9DEE5"
+            BorderThickness="1"
+            CornerRadius="6">
+      <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Text="Proto Inspector"
+                   FontSize="19"
+                   FontWeight="Bold"
+                   Foreground="#0F172A"
+                   VerticalAlignment="Center" />
+        <TextBlock x:Name="WorkspacePathTextBlock"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   Margin="0,3,0,0"
+                   Foreground="#64748B"
+                   TextWrapping="Wrap" />
+        <TextBlock Grid.RowSpan="2"
+                   Grid.Column="1"
+                   Margin="14,0,0,0"
+                   VerticalAlignment="Center"
+                   Foreground="#64748B"
+                   Text="加载协议后直接在下方输入并解析" />
+      </Grid>
+    </Border>
+
+    <Border Grid.Row="1"
+            Padding="10"
+            Margin="0,0,0,8"
+            Background="White"
+            BorderBrush="#D9DEE5"
+            BorderThickness="1"
+            CornerRadius="6">
+      <Grid ColumnDefinitions="96,220,86,260,*" RowDefinitions="Auto,Auto">
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="协议文件" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#334155" />
+        <ComboBox x:Name="ProtocolFileComboBox" Grid.Row="0" Grid.Column="1" MinWidth="200" Margin="0,0,8,0" />
+
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="消息类型" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#334155" />
+        <AutoCompleteBox x:Name="MessageTypeAutoCompleteBox"
+                         Grid.Row="0"
+                         Grid.Column="3"
+                         Margin="0,0,12,0"
+                         MinimumPrefixLength="0"
+                         IsTextCompletionEnabled="False"
+                         Watermark="输入类名关键字" />
+
+        <StackPanel Grid.Row="0"
+                    Grid.Column="4"
+                    Orientation="Horizontal"
+                    Spacing="6"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center">
+          <Button x:Name="RefreshFilesButton" Content="刷新协议" Height="30" MinWidth="74" />
+          <Button x:Name="CheckProtocolsButton" Content="重新检测" Height="30" MinWidth="74" />
+          <Button x:Name="LoadProtocolButton" Content="加载协议" Classes="accent" Height="32" MinWidth="78" />
+          <Button x:Name="UnloadProtocolButton" Content="清空当前" Height="30" MinWidth="74" />
+        </StackPanel>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="当前协议" Margin="0,6,8,0" Foreground="#64748B" VerticalAlignment="Center" />
+        <TextBlock x:Name="SelectedProtocolTextBlock" Grid.Row="1" Grid.Column="1" Margin="0,6,8,0" FontWeight="SemiBold" Foreground="#0F172A" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+
+        <WrapPanel Grid.Row="1"
+                   Grid.Column="2"
+                   Grid.ColumnSpan="3"
+                   Margin="0,6,0,0"
+                   VerticalAlignment="Center">
+          <TextBlock Text="状态" Margin="0,0,8,0" Foreground="#64748B" VerticalAlignment="Center" />
+          <TextBlock x:Name="SessionStateTextBlock" Margin="0,0,18,0" FontWeight="SemiBold" VerticalAlignment="Center" />
+          <TextBlock Text="消息数" Margin="0,0,4,0" Foreground="#64748B" VerticalAlignment="Center" />
+          <TextBlock x:Name="MessageCountTextBlock" Margin="0,0,18,0" FontWeight="SemiBold" Foreground="#0F172A" VerticalAlignment="Center" />
+          <TextBlock x:Name="MissingFilesSummaryTextBlock"
+                     Margin="0,0,12,0"
+                     Foreground="#475569"
+                     VerticalAlignment="Center"
+                     TextTrimming="CharacterEllipsis" />
+          <Button x:Name="GenerateMissingFilesButton"
+                  Content="生成缺失文件"
+                  Classes="accent"
+                  Height="30"
+                  MinWidth="92" />
+        </WrapPanel>
+      </Grid>
+    </Border>
+
+    <Grid Grid.Row="2" ColumnDefinitions="*,8,*">
+      <Border Grid.Column="0"
+              Padding="10"
+              Background="White"
+              BorderBrush="#D9DEE5"
+              BorderThickness="1"
+              CornerRadius="6">
+        <Grid RowDefinitions="Auto,*">
+          <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,6">
+            <TextBlock x:Name="InputTitleTextBlock"
+                       Grid.Column="0"
+                       Text="输入字节码或 JSON"
+                       FontSize="15"
+                       FontWeight="SemiBold"
+                       Foreground="#0F172A"
+                       VerticalAlignment="Center" />
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" Margin="10,0,0,0">
+              <Button x:Name="GenerateSampleButton"
+                      Content="生成样例"
+                      Height="30"
+                      MinWidth="88"
+                      HorizontalContentAlignment="Center"
+                      VerticalContentAlignment="Center" />
+              <Button x:Name="LoadByteFileButton"
+                      Content="读取文件"
+                      Height="30"
+                      MinWidth="88"
+                      HorizontalContentAlignment="Center"
+                      VerticalContentAlignment="Center" />
+            </StackPanel>
+          </Grid>
+          <TextBox x:Name="ByteInputTextBox"
+                   Grid.Row="1"
+                   AcceptsReturn="True"
+                   TextWrapping="Wrap"
+                   VerticalContentAlignment="Top"
+                   FontFamily="Consolas"
+                   FontSize="13" />
+        </Grid>
+      </Border>
+
+      <GridSplitter Grid.Column="1" Width="8" ResizeDirection="Columns" Background="#D7DCE3" />
+
+      <Grid Grid.Column="2" RowDefinitions="*,Auto">
+        <Border Grid.Row="0"
+                Padding="10"
+                Background="White"
+                BorderBrush="#D9DEE5"
+                BorderThickness="1"
+                CornerRadius="6">
+          <Grid RowDefinitions="Auto,*">
+            <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,6">
+              <TextBlock Grid.Column="0"
+                         Text="解析结果"
+                         FontSize="15"
+                         FontWeight="SemiBold"
+                         Foreground="#0F172A"
+                         VerticalAlignment="Center" />
+              <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" Margin="10,0,0,0">
+                <Button x:Name="ParseButton" Content="反序列化" Classes="accent" Height="32" MinWidth="78" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                <Button x:Name="SerializeButton" Content="序列化" Classes="accent" Height="32" MinWidth="78" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+              </StackPanel>
+            </Grid>
+            <TextBox x:Name="ResultTextBox"
+                     Grid.Row="1"
+                     IsReadOnly="True"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     VerticalContentAlignment="Top"
+                     FontFamily="Consolas"
+                     FontSize="13" />
+          </Grid>
+        </Border>
+
+        <Border Grid.Row="1"
+                Margin="0,8,0,0"
+                Padding="10"
+                Height="88"
+                Background="White"
+                BorderBrush="#D9DEE5"
+                BorderThickness="1"
+                CornerRadius="6">
+          <TextBox x:Name="MissingFilesTextBox"
+                   IsReadOnly="True"
+                   AcceptsReturn="True"
+                   TextWrapping="Wrap"
+                   VerticalContentAlignment="Top" />
+        </Border>
+      </Grid>
+    </Grid>
+
+    <Border Grid.Row="3" Margin="0,8,0,0" Padding="2,0" Background="Transparent">
+      <TextBlock x:Name="StatusTextBlock" Foreground="#475569" />
+    </Border>
+  </Grid>
+</Window>

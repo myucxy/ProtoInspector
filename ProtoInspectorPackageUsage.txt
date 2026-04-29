@@ -1,0 +1,40 @@
+Proto Inspector 使用说明
+========================
+
+启动方式
+--------
+直接双击运行 ProtoInspector.exe。
+
+目录说明
+--------
+- ProtocolWorkspace\proto      存放 .proto 协议文件。
+- ProtocolWorkspace\generated  存放 protoc 生成的 C# 协议文件。
+- ProtocolWorkspace\bytes      存放示例字节码文件，例如 byte.txt。
+- protoc.exe                   用于从 .proto 生成 C# 协议文件。
+
+主要功能
+--------
+1. 加载协议：选择 generated 目录下的 C# 协议文件，点击“加载协议”。
+2. 选择消息类型：在“消息类型”输入关键字筛选并选择目标 Protobuf 消息。
+3. 反序列化：在左侧输入十六进制、十进制或 Base64 字节码，点击“反序列化”。
+4. 序列化：在左侧输入 Protobuf JSON，点击“序列化”，输出 Hex、Base64、Decimal 和 C# byte 数组。
+5. 生成样例：点击“生成样例”，根据当前消息类型生成 JSON 样例，可选择直接写入或编辑后写入。
+6. 读取文件：点击“读取文件”，将文本文件内容加载到左侧输入框。
+7. 生成缺失文件：当检测到 proto 未生成 C# 文件时，可点击“生成缺失文件”。
+
+JSON 输入提示
+------------
+- 字段名遵循 Protobuf JSON 规则，通常为 lowerCamelCase。
+- int64/uint64 类型建议使用字符串形式，例如 "1"。
+- bytes 类型使用 Base64 字符串。
+
+字节码输入提示
+------------
+- 十六进制示例：0A 44 08 CE 或 0x0A 0x44 0x08 0xCE。
+- 十进制示例：10 68 8 206。
+- Base64 示例：CkQIzgESATE=。
+
+命令行烟测
+----------
+ProtoInspector.exe --smoke-test <generated.cs> <messageType> <byte.txt>
+ProtoInspector.exe --smoke-test --serialize <generated.cs> <messageType> <json.txt>
