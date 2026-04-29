@@ -1,7 +1,7 @@
 # Proto Inspector
 
 Proto Inspector 是一个用于调试、解析和验证 Protobuf 消息的桌面工具。它可以动态加载由 `.proto` 生成的 C# 协议文件，将字节数据反序列化为 Protobuf JSON，也可以把 Protobuf JSON 序列化回字节格式，适合协议联调、抓包分析和接口数据排查。
-
+![主页面截图](主页面.png)
 ## 功能特性
 
 - 加载 `generated` 目录下的 C# Protobuf 协议文件
